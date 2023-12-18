@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Booleans</title>
+  </head>
+
+  <body>
+
+
+    <script>
+      /*
+      console.log(3 < 5);
+      console.log(3 > 5);
+      console.log(typeof (5 >= 3));
+      console.log(5 === 5);
+      console.log(5 == '5.00');
+      console.log(5 !== 4);
+      console.log(5 != '4.00');
+
+      if (false) {
+        console.log('hello');
+      }
+      if (true) {
+        console.log('hello');
+      }
+
+      if (false) {
+        console.log('else');
+      } else {
+        console.log('else');
+      }
+
+      let age = 15;
+
+      if (age >= 18) {
+        console.log('Congrats, you may drive')
+      } else if (age >= 16) {
+        console.log('Naah, nearly there though')
+      } else {
+        console.log('You may and shall not drive')
+      }
+
+      console.log(true || false);
+      console.log(!false);
+
+      const falsy = 0;
+      if (falsy) {
+        console.log('true');
+      } else {
+        console.log('falsy');
+      }
+      */ 
+
+      // if true, gives 'truthy' value, else false, gives the 'falsy' value
+      let isTruthy = true ? 'truthy' : 'falsy'
+      console.log(isTruthy);
+
+      //b is always be interpreted for either truthy or falsy, while c is the value a assign to when b is truthy
+      //const a = b && c;
+      isTruthy = true && 'truthy';
+      console.log(isTruthy);
+
+      //b is always be interpreted for truthy or falsy, while c is the value a assign to when b is falsy (it's just the opposite of &&)
+      // const a = b || c;
+      isTruthy = false || 'falsy';
+      console.log(isTruthy);
+    </script>
+  </body>
+</html>

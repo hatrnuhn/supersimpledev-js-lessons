@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lesson 8 Exercises</title>
+  </head>
+  <body>
+    <script>
+      const basketball = {
+        name: 'basketball',
+        price: 2095,
+        'delivery-time': '3 days'
+      }
+
+      const cheese = {
+        name: 'cheese',
+        price: 1499,
+        'delivery-time': 'same day'
+      }
+
+      basketball.price += 500;
+      console.log(basketball);
+      console.log(basketball['delivery-time']);
+
+      function comparePrice(product1, product2) {
+        return product1.price > product2.price ? product1 : product2;
+      }
+
+      console.log(comparePrice(cheese, basketball));
+
+      function isSameProduct(product1, product2) {
+        return product1.name === product2.name && product1.price === product2.price ? 'same shit' : 'different stuffs';
+      }
+
+      console.log(isSameProduct(cheese, cheese));
+      console.log(isSameProduct(basketball, cheese));
+
+      console.log('TOLOWER'.toLowerCase());
+      console.log('repeat'.repeat(3));
+    </script>
+  </body>
+</html>

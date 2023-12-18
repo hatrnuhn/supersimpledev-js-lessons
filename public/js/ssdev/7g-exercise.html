@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+  </head>
+  <body>
+    <p>
+      <button onclick="
+        addToCal('1');
+      ">1</button>
+      
+      <button onclick="
+        addToCal('2');
+      ">2</button>
+
+      <button onclick="
+        addToCal('3');
+      ">3</button>
+
+      <button onclick="
+        addToCal(' + ');
+      ">+</button>
+    </p>
+
+    <p>
+      <button onclick="
+        addToCal('4');
+      ">4</button>
+      
+      <button onclick="
+        addToCal('5');
+      ">5</button>
+
+      <button onclick="
+        addToCal('6');
+      ">6</button>
+
+      <button onclick="
+        addToCal(' - ');
+      ">-</button>
+    </p>
+
+    <p>
+      <button onclick="
+        addToCal('7');
+      ">7</button>
+      
+      <button onclick="
+        addToCal('8');
+      ">8</button>
+
+      <button onclick="
+        addToCal('9');
+      ">9</button>
+
+      <button onclick="
+        addToCal(' * ');
+      ">*</button>
+    </p>
+
+    <p>
+      <button onclick="
+        addToCal('0');
+      ">0</button>
+      
+      <button onclick="
+        addToCal('.');
+      ">.</button>
+
+      <button onclick="
+        calculation = eval(calculation);
+
+        if (typeof calculation === 'number' && !isNaN(calculation) && (lastPressed === '9' || lastPressed === '8' || lastPressed === '7' || lastPressed === '6' || lastPressed === '5' || lastPressed === '4' || lastPressed === '3' || lastPressed === '2' || lastPressed === '1' || lastPressed === '0')) {
+          console.log(calculation);
+        } else {
+          calculation = '';
+          console.log('make sure the input is right');
+        }
+      ">=</button>
+
+      <button onclick="
+        addToCal(' / ');
+      ">/</button>
+    </p>
+
+    <p>
+      <button onclick="
+        calculation = '';
+        lastPressed = '';
+      ">Clear</button>
+    </p>
+   
+    <script>
+      let calculation = '';
+      let lastPressed = '';
+      
+      function addToCal(button) {
+        // last pressed
+        if (((!calculation) && (button === ' / ' || button === ' * ' || button === ' - ' || button === ' + ')) || (calculation &&  (lastPressed === ' / ' || lastPressed === ' * ' || lastPressed === ' - ' || lastPressed === ' + ' || lastPressed === '')) && (button === ' / ' || button === ' * ' || button === ' - ' || button === ' + ')) {
+          console.log('Please input a number before any operator');
+          lastPressed = '';
+        } else {
+          calculation += button;
+          lastPressed = button;
+        }
+        console.log(calculation);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Coin Flip</title>
+  </head>
+  <body>
+    <button onclick="
+      tossCoin('heads');
+    ">Heads</button>
+
+    <button onclick="
+      tossCoin('tails');
+    ">Tails</button>
+
+    <button onclick="
+      resetScore();
+    ">Reset Score</button>
+    
+    <script>
+      const score = JSON.parse(localStorage.getItem('score')) || {
+        wins: 0,
+        losses: 0,
+      };
+
+      console.log(score);      
+
+      function tossCoin(guess){
+        const randomNumber = Math.random();
+        let roll = (randomNumber < 0.5) ? 'heads' : 'tails';
+        let result = '';
+
+        if (roll === guess) {
+          result = 'win';
+          score.wins++;
+        } else {
+          result = 'lose';
+          score.losses++;
+        }
+
+        alert(`You guessed ${guess} and tossed ${roll}, you ${result}!\nWins: ${score.wins}, losses: ${score.losses}`);
+        console.log(score);      
+        localStorage.setItem('score', JSON.stringify(score));
+      }
+
+      function resetScore() {
+        score.wins = 0,
+        score.losses = 0,
+        localStorage.removeItem('score');
+        alert('Score was reset!');
+        console.log(score);
+      }
+    </script>
+  </body>
+</html>

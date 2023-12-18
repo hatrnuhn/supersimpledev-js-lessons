@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lesson 5 Exercises</title>
+  </head>
+
+  <body>
+    <script>
+      const name = 'Oscar';
+      const coffee = 500;
+      const bagel = 300;
+      const soup = 900;
+
+      let totalOrder = (coffee + (bagel * 2) + soup) / 100;
+
+      let tax = totalOrder * 0.1;
+
+      let totalPrice = totalOrder + tax;
+
+      console.log(`My car name is: ${name}.\nHe'd like to order a cup of coffee, two bagels, and a soup.\nSo, it would cost $${totalOrder} and $${tax} tax.\nIn total, you'd have to pay $${totalPrice}.`);
+    </script>
+  </body>
+</html>
