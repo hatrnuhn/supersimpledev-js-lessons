@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>9g Exercise</title>
+	</head>
+	<body>
+		<p>Youtube Subscribe Button</p>
+		<button class="js-subscribe-button" onclick="
+			subscribe();
+		">Subscribe</button>
+
+		<p>Rock, Paper, Scissors</p>
+		<p>Click here</p>
+
+		<p>Amazon Shipping Calculator</p>
+		<p>Orders under $40 = +$10 shipping.</p>
+		<p>Orders over $40 get free shipping.</p>
+		<input placeholder="Cost of order" class="js-cost-input" onkeydown="
+			costKeyDown(event.key);
+		">
+		<button onclick="
+			calculateTotal();
+		">Calculate</button>
+		<p class="js-total-cost"></p>
+
+		<script>
+			function costKeyDown(key) {
+				if (key === 'Enter') {
+					calculateTotal();
+				}
+			}
+
+			function subscribe() {
+				const buttonElement = document.querySelector('.js-subscribe-button');
+
+				if (buttonElement.innerHTML === 'Subscribe') {
+				buttonElement.innerHTML = 'Subscribed';
+				} else {
+				buttonElement.innerHTML = 'Subscribe';
+				};
+				window.console.log(buttonElement.innerText); // adding window object in the front is optional, if not added, js will automatically add it
+			}
+
+			
+			function calculateTotal() {
+				const inputElement = document.querySelector('.js-cost-input');
+				let cost = Number(inputElement.value);
+
+				if (cost < 40) {
+					cost = (cost * 100 + 1000) / 100;
+				}
+
+				document.querySelector('.js-total-cost')
+					.innerHTML = `$${cost}`;
+			}
+		</script>
+	</body>
+</html>
