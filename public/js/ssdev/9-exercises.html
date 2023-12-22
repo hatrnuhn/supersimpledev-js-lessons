@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lesson 9 Exercises</title>
+  </head>
+  <body>
+    <button>9a</button>
+    <button class="js-button1">9b</button>
+
+    <br>
+    <br>
+
+    <button onclick="
+      showChoice('heads');
+    ">heads</button>
+
+    <button onclick="
+      showChoice('tails');
+    ">tails</button>
+    <p class="js-show-choice"></p>
+
+    <input placeholder="What's ur name, boo?" class="js-name-input" onkeydown="
+      nameKeyDown();
+    ">
+    <button onclick="
+      showName();
+    ">Submit</button>
+    <p class="js-show-name"></p>
+    
+    <div>
+      <input class="js-keyup-input" placeholder="Type anything here, boo" onkeyup="
+        showKeyUp();
+      ">
+      <label class="js-keyup-delete"></label>
+ 
+      <p class="js-keyup"></p>
+    </div>
+
+    <script>
+      console.log(document.querySelector('button'));
+      document.querySelector('.js-button1')
+        .innerHTML = '9b is done!';
+
+      function showChoice(button) {
+        document.querySelector('.js-show-choice')
+          .innerHTML = `You chose: ${button}`;
+      }
+
+      function showName() {
+        const nameInput = document.querySelector('.js-name-input');
+
+        document.querySelector('.js-show-name')
+          .innerHTML = `Hello, ${nameInput.value}.`;
+      }
+
+      function nameKeyDown() {
+        if (event.key === 'Enter') {
+          showName();
+        }
+      }
+
+      function showKeyUp() {
+        document.querySelector('.js-keyup')
+          .innerText += event.key;
+        
+        document.querySelector('.js-keyup-delete').innerHTML = `<button onclick="
+          deleteKeyUp();
+        ">Delete typing</button>`;
+      }
+
+      function deleteKeyUp() {
+        document.querySelector('.js-keyup')
+            .innerText = '';
+        document.querySelector('.js-keyup-input').value = '';
+      }
+    </script>
+  </body>
+</html>
