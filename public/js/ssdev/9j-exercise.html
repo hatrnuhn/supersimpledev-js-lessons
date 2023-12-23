@@ -78,6 +78,9 @@
           calcMem.calculation = '';
           writeMisc('make sure the input is right');
         }
+
+        storeCalcMem();
+
       ">=</button>
 
       <button onclick="
@@ -97,26 +100,32 @@
         lastPressed: ''
       };
 
+      writeCalc(calcMem.calculation);
+
       function addToCal(button) {
         // last pressed
         if (((!calcMem.calculation) && (button === ' / ' || button === ' * ' || button === ' - ' || button === ' + ')) || (calcMem.calculation &&  (calcMem.lastPressed === ' / ' || calcMem.lastPressed === ' * ' || calcMem.lastPressed === ' - ' || calcMem.lastPressed === ' + ' || calcMem.lastPressed === '')) && (button === ' / ' || button === ' * ' || button === ' - ' || button === ' + ')) {
           writeMisc('Please input a number before any operator');
           calcMem.lastPressed = '';
-          localStorage.setItem('calcMem', JSON.stringify(calcMem));
+          storeCalcMem();
         } else {
           writeMisc('');
           calcMem.calculation += button;
           calcMem.lastPressed = button;
-          localStorage.setItem('calcMem', JSON.stringify(calcMem));          
+          storeCalcMem();
         }
         writeCalc(calcMem.calculation);
+      }
+
+      function storeCalcMem() {
+        localStorage.setItem('calcMem', JSON.stringify(calcMem));
       }
 
       function writeCalc(calculation) {
         document.querySelector('.js-display')
           .innerHTML = calculation;
       }
-      
+
       function writeMisc(text) {
         document.querySelector('.js-misc')
           .innerHTML = text;
