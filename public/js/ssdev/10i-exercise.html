@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="files/styles/10i-exercise.css">
+  </head>
+  <body>
+    <p class="js-display display"></p>
+    <p class="js-misc misc display"></p>
+    <p>
+      <button class="button-grey" onclick="
+        addToCal('1');
+      ">1</button>
+      
+      <button class="button-grey" onclick="
+        addToCal('2');
+      ">2</button>
+
+      <button class="button-grey" onclick="
+        addToCal('3');
+      ">3</button>
+
+      <button class="button-org" onclick="
+        addToCal(' + ');
+      ">+</button>
+    </p>
+
+    <p>
+      <button class="button-grey" onclick="
+        addToCal('4');
+      ">4</button>
+      
+      <button class="button-grey" onclick="
+        addToCal('5');
+      ">5</button>
+
+      <button class="button-grey" onclick="
+        addToCal('6');
+      ">6</button>
+
+      <button class="button-org" onclick="
+        addToCal(' - ');
+      ">-</button>
+    </p>
+
+    <p>
+      <button class="button-grey" onclick="
+        addToCal('7');
+      ">7</button>
+      
+      <button class="button-grey" onclick="
+        addToCal('8');
+      ">8</button>
+
+      <button class="button-grey" onclick="
+        addToCal('9');
+      ">9</button>
+
+      <button class="button-org" onclick="
+        addToCal(' * ');
+      ">*</button>
+    </p>
+
+    <p>
+      <button class="button-grey" onclick="
+        addToCal('0');
+      ">0</button>
+      
+      <button class="button-grey" onclick="
+        addToCal('.');
+      ">.</button>
+
+      <button class="button-grey" onclick="
+        calcMem.calculation = eval(calcMem.calculation);
+
+        if (typeof calcMem.calculation === 'number' && !isNaN(calcMem.calculation) && (calcMem.lastPressed === '9' || calcMem.lastPressed === '8' || calcMem.lastPressed === '7' || calcMem.lastPressed === '6' || calcMem.lastPressed === '5' || calcMem.lastPressed === '4' || calcMem.lastPressed === '3' || calcMem.lastPressed === '2' || calcMem.lastPressed === '1' || calcMem.lastPressed === '0')) {
+          writeCalc(calcMem.calculation);
+        } else {
+          calcMem.calculation = '';
+          writeMisc('make sure the input is right');
+        }
+
+        storeCalcMem();
+
+      ">=</button>
+
+      <button class="button-org" onclick="
+        addToCal(' / ');
+      ">/</button>
+    </p>
+
+    <p>
+      <button class="button-clear button-grey" onclick="
+        resetCalculator();
+      ">Clear</button>
+    </p>
+   
+    <script 
+    src="files/scripts/10i-exercise.js">
+    </script>
+  </body>
+</html>
