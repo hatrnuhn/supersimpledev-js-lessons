@@ -5,12 +5,13 @@
   </head>
   
   <body>
-    <button class="js-show-cart" onclick="
-    ">Show cart</button>
+    <button class="js-quantity-toogle" onclick="
+        toogleQuantityVis();
+      ">Toogle Show Quantity</button>
 
     <button onclick="
       updateCartQuantity(1, '+');
-    ">Add to cart</button>
+    ">Add to Cart</button>
 
     <button onclick="
       updateCartQuantity(2, '+');
@@ -33,50 +34,79 @@
     ">-3</button>
 
     <button onclick="
-      resetCart();
+      cartQuantity = 0;
+      storeCartQuantity();
+      cartConditionElement.innerHTML = 'Cart was reset';
+      showHideQuantity();
     ">Reset Cart</button>
 
     <p class="js-cart-quantity"></p>
     <p class="js-cart-condition"></p>
-  </body>
 
-  <script>
-    let cartQuantity = JSON.parse(localStorage.getItem('cartQuantity')) || 0;
-    const cartConditionElement = document.querySelector('.js-cart-condition');
-    const cartQuantityElement = document.querySelector('.js-cart-quantity');
+    <script>
+      let cartQuantity = JSON.parse(localStorage.getItem('cartQuantity')) || 0;
+      const cartQuantityElement = document.querySelector('.js-cart-quantity');
+      const cartConditionElement = document.querySelector('.js-cart-condition');
+      let toogleQuantity = JSON.parse(localStorage.getItem('toogleQuantity')) || false;
 
-    cartQuantityElement.innerHTML = `Cart quantity: ${cartQuantity}`;
-        
-    function updateCartQuantity(input, operator) {
-      if (operator === '+') {
-        if (cartQuantity + input <= 10) {
-          cartQuantityElement.innerHTML = `Cart quantity: ${cartQuantity}`;
-          cartQuantity += input;
-          cartConditionElement.innerHTML = '';
-        } else {
-          cartConditionElement.innerHTML = 'Your cart is FULL!';
-        }
-      } else if (operator === '-') {
-        if (cartQuantity - input >= 0) {
-          cartQuantityElement.innerHTML = `Cart quantity: ${cartQuantity}`;
-          cartQuantity -= input;
-          cartConditionElement.innerHTML = '';
-        } else {
-          cartConditionElement.innerHTML = 'Not enough items in the cart!';
-        }
+      showHideQuantity();
+
+      function showHideQuantity(){
+        (toogleQuantity) ? showQuantity() : hideQuantity();
       }
 
-      storeCartQuantity();
-    }
+      function showQuantity() {
+        cartQuantityElement.innerHTML = `Cart quantity: ${cartQuantity}`;
+      }
 
-    function resetCart() {
-      cartQuantity = 0;
-      cartConditionElement.innerHTML = '';
-      cartQuantityElement.innerHTML = `Cart was reset. Cart quantity: ${cartQuantity}`;
-    }
+      function hideQuantity() {
+        cartQuantityElement.innerHTML = '';
+      }
 
-    function storeCartQuantity() {
-      localStorage.setItem('cartQuantity', JSON.stringify(cartQuantity));
-    }
-  </script>
+      function storeToogleQuantity() {
+        localStorage.setItem('toogleQuantity', JSON.stringify(toogleQuantity));
+      }
+
+      function storeCartQuantity() {
+        localStorage.setItem('cartQuantity', JSON.stringify(cartQuantity));
+      }
+
+
+      function toogleQuantityVis() {
+        if (toogleQuantity) {
+          hideQuantity();
+          toogleQuantity = false;
+        } else if (!toogleQuantity) {
+          showQuantity();
+          toogleQuantity = true;
+        }
+
+        storeToogleQuantity();
+      }
+
+
+      function updateCartQuantity(input, operator) {
+        if (operator === '+') {
+          if (cartQuantity + input <= 10) {
+            cartQuantity += input;
+            cartConditionElement.innerHTML = '';
+          } else {
+            cartConditionElement.innerHTML = 'Your cart is full!';
+          }
+        } else if (operator === '-') {
+          if (cartQuantity - input >= 0) {
+            cartQuantity -= input;
+            cartConditionElement.innerHTML = '';
+          } else {
+            cartConditionElement.innerHTML = 'Not enough items in the cart!';
+          }
+        }
+
+        showHideQuantity();
+
+        storeCartQuantity();
+        storeToogleQuantity();
+      }
+    </script>
+  </body>
 </html>
