@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DOM Project</title>
+		<style>
+			body {
+				font-family: 'Courier New', Courier, monospace;
+			}
+
+			/* .subscribe-button is the CSS selector*/
+			.subscribe-button {
+				border: none;
+				background-color: black;
+				color: white;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				padding-right: 15px;
+				padding-left: 15px;
+				font-weight: bold;
+				border-radius: 50px;
+				cursor: pointer;
+				margin-bottom: 30px;
+			}
+
+			.is-subscribed {
+				background-color: rgb(240, 240, 240);
+				color: black;
+			}
+
+			.cost-input {
+				font-size: 15px;
+				/* add padding to all 4 sides */
+				padding: 10px; 
+			}
+
+			.calculate-button {
+				border: none;
+				color: white;
+				font-size: 15px;
+				background-color: orange;
+				padding: 12px 15px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<p>Youtube Subscribe Button</p>
+		<button class="js-subscribe-button subscribe-button" onclick="
+			subscribe();
+		">Subscribe</button>
+
+		<p>Rock, Paper, Scissors</p>
+		<p>Click here</p>
+
+		<p>Amazon Shipping Calculator</p>
+		<p>Orders under $40 = +$10 shipping.</p>
+		<p>Orders over $40 get free shipping.</p>
+		<input placeholder="Cost of order" class="js-cost-input cost-input" onkeydown="
+			costKeyDown(event.key);
+		">
+		<button class="calculate-button" onclick="
+			calculateTotal();
+		">Calculate</button>
+		<p class="js-total-cost"></p>
+
+		<script>
+			function costKeyDown(key) {
+				if (key === 'Enter') {
+					calculateTotal();
+				}
+			}
+
+			function subscribe() {
+				const buttonElement = document.querySelector('.js-subscribe-button');
+
+				if (buttonElement.innerHTML === 'Subscribe') {
+					buttonElement.innerHTML = 'Subscribed';
+					buttonElement.classList.add('is-subscribed');
+				} else {
+					buttonElement.innerHTML = 'Subscribe';
+					buttonElement.classList.remove('is-subscribed');
+				};
+
+				window.console.log(buttonElement.innerText); // adding window object in the front is optional, if not added, js will automatically add it
+			}
+
+			
+			function calculateTotal() {
+				const inputElement = document.querySelector('.js-cost-input');
+				let cost = Number(inputElement.value);
+
+				if (cost < 40) {
+					cost += 10;
+				}
+
+				document.querySelector('.js-total-cost')
+					.innerHTML = `$${cost}`;
+			}
+		</script>
+	</body>
+</html>
