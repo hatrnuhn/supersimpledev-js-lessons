@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculator</title>
+  </head>
+  <body>
+    <p class="js-display"></p>
+    <p class="js-misc"></p>
+    <p>
+      <button onclick="
+        addToCal('1');
+      ">1</button>
+      
+      <button onclick="
+        addToCal('2');
+      ">2</button>
+
+      <button onclick="
+        addToCal('3');
+      ">3</button>
+
+      <button onclick="
+        addToCal(' + ');
+      ">+</button>
+    </p>
+
+    <p>
+      <button onclick="
+        addToCal('4');
+      ">4</button>
+      
+      <button onclick="
+        addToCal('5');
+      ">5</button>
+
+      <button onclick="
+        addToCal('6');
+      ">6</button>
+
+      <button onclick="
+        addToCal(' - ');
+      ">-</button>
+    </p>
+
+    <p>
+      <button onclick="
+        addToCal('7');
+      ">7</button>
+      
+      <button onclick="
+        addToCal('8');
+      ">8</button>
+
+      <button onclick="
+        addToCal('9');
+      ">9</button>
+
+      <button onclick="
+        addToCal(' * ');
+      ">*</button>
+    </p>
+
+    <p>
+      <button onclick="
+        addToCal('0');
+      ">0</button>
+      
+      <button onclick="
+        addToCal('.');
+      ">.</button>
+
+      <button onclick="
+        calcMem.calculation = eval(calcMem.calculation);
+
+        if (typeof calcMem.calculation === 'number' && !isNaN(calcMem.calculation) && (calcMem.lastPressed === '9' || calcMem.lastPressed === '8' || calcMem.lastPressed === '7' || calcMem.lastPressed === '6' || calcMem.lastPressed === '5' || calcMem.lastPressed === '4' || calcMem.lastPressed === '3' || calcMem.lastPressed === '2' || calcMem.lastPressed === '1' || calcMem.lastPressed === '0')) {
+          writeCalc(calcMem.calculation);
+        } else {
+          calcMem.calculation = '';
+          writeMisc('make sure the input is right');
+        }
+      ">=</button>
+
+      <button onclick="
+        addToCal(' / ');
+      ">/</button>
+    </p>
+
+    <p>
+      <button onclick="
+        resetCalculator();
+      ">Clear</button>
+    </p>
+   
+    <script>
+      const calcMem = JSON.parse(localStorage.getItem('calcMem')) || {
+        calculation: '',
+        lastPressed: ''
+      };
+
+      function addToCal(button) {
+        // last pressed
+        if (((!calcMem.calculation) && (button === ' / ' || button === ' * ' || button === ' - ' || button === ' + ')) || (calcMem.calculation &&  (calcMem.lastPressed === ' / ' || calcMem.lastPressed === ' * ' || calcMem.lastPressed === ' - ' || calcMem.lastPressed === ' + ' || calcMem.lastPressed === '')) && (button === ' / ' || button === ' * ' || button === ' - ' || button === ' + ')) {
+          writeMisc('Please input a number before any operator');
+          calcMem.lastPressed = '';
+          localStorage.setItem('calcMem', JSON.stringify(calcMem));
+        } else {
+          writeMisc('');
+          calcMem.calculation += button;
+          calcMem.lastPressed = button;
+          localStorage.setItem('calcMem', JSON.stringify(calcMem));          
+        }
+        writeCalc(calcMem.calculation);
+      }
+
+      function writeCalc(calculation) {
+        document.querySelector('.js-display')
+          .innerHTML = calculation;
+      }
+      
+      function writeMisc(text) {
+        document.querySelector('.js-misc')
+          .innerHTML = text;
+      }
+
+      function resetCalculator() {
+        calcMem.calculation = '';
+        calcMem.lastPressed = '';
+
+        localStorage.removeItem('calcMem');
+
+        writeCalc(calcMem.calculation);
+        writeMisc('Calculator was reset');
+      }
+    </script>
+  </body>
+</html>
