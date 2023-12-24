@@ -149,3 +149,118 @@ function countWords(words) {
 }
 
 console.log(countWords(['apple', 'grape', 'apple', 'apple']));
+
+// 11opq
+function findIndex(array, word) {
+  let index = -1;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] !== word) {
+      continue;
+    } else {
+      index = i;
+      break;
+    }
+  }
+  return index;
+}
+
+console.log(findIndex(['hello', 'world', 'search', 'good'], 'search'));
+console.log(findIndex(['not', 'found'], 'search'));
+console.log(findIndex(['hello', 'world', 'search', 'good', 'search'], 'search'));
+
+// 11r
+function removeEgg(foods) {
+  const newFoods = [];
+
+  for (let i = 0; i < foods.length; i++) {
+    if (foods[i] === 'egg') {
+      continue;
+    }
+
+    newFoods.push(foods[i]);
+  }
+
+  return newFoods;
+}
+
+console.log(removeEgg(['egg', 'apple', 'egg', 'egg', 'ham']));
+
+// 11s
+function removeFirstTwoEggs(foods) {
+  const newFoods = [];
+  let eggCounter = 0;
+
+  for (let i = 0; i < foods.length; i++) {
+    if (foods[i] === 'egg' && eggCounter < 2) {
+      eggCounter++;
+      continue;
+    }
+
+    newFoods.push(foods[i]);
+  }
+
+  return newFoods;
+}
+
+console.log(removeFirstTwoEggs(['egg', 'apple', 'egg', 'egg', 'ham']));
+
+// 11tu
+function removeLastTwoEggs(foods) {
+  const reverseFoods = foods.slice().reverse();
+  const newFoods = [];
+  let eggCounter = 0;
+
+  for (let i = 0; i < foods.length; i++) {
+    if (reverseFoods[i] === 'egg' && eggCounter < 2) {
+      eggCounter++;
+      continue;
+    }
+
+    newFoods.push(reverseFoods[i]);
+  }
+
+  return newFoods.reverse();
+}
+
+const foods = ['egg', 'apple', 'egg', 'egg', 'ham'];
+console.log(removeLastTwoEggs(foods));
+console.log(foods);
+
+// 11v
+function fizzBuzz() {
+  for (let i = 1; i <= 20; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      console.log('FizzBuzz');
+    } else if (i % 3 === 0) {
+      console.log('Fizz');
+    } else if (i % 5 === 0) {
+      console.log('Buzz');
+    }
+
+    console.log(i);
+  }
+}
+
+fizzBuzz();
+
+// 11w, uses 11opq function findIndex(words, word);
+function unique(words) {
+  const uniqueWords = [];
+
+  for (let i = 0; i < words.length; i++) {
+    const index = findIndex(words, words[i]);
+    if (words[i] === words[index] && index !== i) {
+      // uniqueWords.splice(index, 1); removes word that has duplicate from uniqueWords
+      continue;
+    }
+    
+    uniqueWords.push(words[i]);
+  }
+
+  return uniqueWords;
+}
+
+console.log(unique(['green', 'red', 'blue', 'red']));
+console.log(unique(['red', 'green', 'green', 'red']));
+
+// 11x is in different files
