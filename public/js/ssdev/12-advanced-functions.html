@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Advanced Functions</title>
+  </head>
+  <body>
+    <script>
+      const function1 = function greeting() {
+        console.log('hello');
+      };
+      /*
+      this one is anonymous function
+      var greeting = function() {
+        console.log('hello');
+      };
+
+      this is the real function declaration while below is just like a shortcut
+
+      function greeting() {
+        console.log('hello');
+      }
+
+      why'd you use below rather anonymous? below allows you to do hoisting, where you call the function before declaring it
+      
+
+      // passing function as a parameter
+      function run(param) {
+        param();
+      }
+      
+      run(function() {
+        console.log('hello');
+      });
+      */
+
+      /*
+      setTimeout(function() {
+        console.log('timeout');
+      }, 3000);
+
+      console.log('next line');
+
+      setInterval(function() {
+        console.log('interval');
+      }, 3000);
+      */
+
+      [
+        'eat',
+        'jim',
+        'rest'
+      ].forEach(function(value, index){
+        if (value === 'wash dishes') {
+          return; // like a continue;
+        }
+        
+        console.log(index);
+        console.log(value);
+      });
+    </script>
+  </body>
+</html>
