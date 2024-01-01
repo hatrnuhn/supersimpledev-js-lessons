@@ -56,6 +56,12 @@ function writeMove(text) {
 let isAutoPlaying = false;
 let intervalId;
 
+document.body.addEventListener('keyup', eventObj => {
+    if (eventObj.key === 'a' && (!isConfirming)) {
+      autoPlay();    
+    }
+  });
+
 function autoPlay() {
   const autoPlayButtonElement = document.querySelector('.js-auto-play-button');
 
@@ -68,7 +74,7 @@ function autoPlay() {
   } else {
     clearInterval(intervalId);
     isAutoPlaying = false;
-    autoPlayButtonElement.innerHTML = 'Auto Play';
+    if (!isConfirming) autoPlayButtonElement.innerHTML = 'Auto Play';
   }
 }
 
@@ -118,8 +124,14 @@ function pickComputerMove() {
   return computerMove; 
 }
 
+document.body.addEventListener('keyup', eventObj => {
+  if (eventObj.key === 'Backspace') {
+    resetScore();
+  }
+});
 
 function resetScore() {
+  if (isAutoPlaying) autoPlay();
   score.wins = 0;
   score.losses = 0;
   score.ties = 0;
@@ -129,4 +141,38 @@ function resetScore() {
   writeResult('Score was reset.');
   writeMove('');
   updateScoreElement();
+}
+
+let isConfirming = true;
+renderResetAutoContainer();
+
+function renderResetAutoContainer() {
+  const resetAutoContainerElement = document.querySelector('.js-reset-auto-container');
+  if (isConfirming) {
+    resetAutoContainerElement.innerHTML = `
+      <button class="js-reset-button reset-score-button">Reset Score</button>
+          
+      <button class="auto-play-button js-auto-play-button">Auto Play</button>
+    `;
+    resetAutoContainerElement.classList.remove('confirmation-grid');
+    
+    document.querySelector('.js-reset-button').addEventListener('click', renderResetAutoContainer);
+    
+    document.querySelector('.js-auto-play-button').addEventListener('click', autoPlay);
+
+    isConfirming = false;
+  } else {
+    resetAutoContainerElement.innerHTML = `
+      <p>U sure u want to reset the score?</p>
+      <button class="confirmation-button" onclick="
+        resetScore();
+        renderResetAutoContainer();
+      ">Yes</button>
+      <button class="confirmation-button" onclick="
+        renderResetAutoContainer();
+      ">No</button>
+    `;
+    resetAutoContainerElement.classList.add('confirmation-grid');
+    isConfirming = true;
+  }
 }

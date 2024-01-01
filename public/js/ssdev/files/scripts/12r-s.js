@@ -56,20 +56,35 @@ function writeMove(text) {
 let isAutoPlaying = false;
 let intervalId;
 
-function autoPlay() {
-  const autoPlayButtonElement = document.querySelector('.js-auto-play-button');
+document.body.addEventListener('keyup', eventObj => {
+    if (eventObj.key === 'a' && (!isConfirming)) {
+      autoPlay();    
+    }
+  });
 
+function autoPlay() {
   if (!isAutoPlaying) {
-    intervalId = setInterval(() => {
-      playGame(pickComputerMove());
-    }, 1000); 
-    isAutoPlaying = true;
-    autoPlayButtonElement.innerHTML = 'Stop Auto Play';
+    startAutoPlay();
   } else {
-    clearInterval(intervalId);
-    isAutoPlaying = false;
-    autoPlayButtonElement.innerHTML = 'Auto Play';
+    stopAutoPlay();
   }
+}
+
+function startAutoPlay() {
+  intervalId = setInterval(() => {
+    playGame(pickComputerMove());
+  }, 1000); 
+  isAutoPlaying = true;
+  
+  document.querySelector('.js-auto-play-button')
+    .innerHTML = 'Stop Auto Play';
+}
+
+function stopAutoPlay() {
+  clearInterval(intervalId);
+  isAutoPlaying = false;
+  if (!isConfirming) document.querySelector('.js-auto-play-button')
+    .innerHTML = 'Auto Play';
 }
 
 function playGame(userMove) {
@@ -118,8 +133,14 @@ function pickComputerMove() {
   return computerMove; 
 }
 
+document.body.addEventListener('keyup', eventObj => {
+  if (eventObj.key === 'Backspace') {
+    resetScore();
+  }
+});
 
 function resetScore() {
+  if (isAutoPlaying) stopAutoPlay();
   score.wins = 0;
   score.losses = 0;
   score.ties = 0;
@@ -129,4 +150,54 @@ function resetScore() {
   writeResult('Score was reset.');
   writeMove('');
   updateScoreElement();
+}
+
+let isConfirming = false;
+const resetAutoContainerElement = document.querySelector('.js-reset-auto-container');
+renderDefaultResetAutoElement();
+
+function toggleResetAutoConfirm(isFromResetButton = false) {
+  if (isFromResetButton) {
+    isConfirming = true;
+    renderConfirmation();
+  } else {
+    isConfirming = false;
+  }
+
+  if (!isConfirming) renderDefaultResetAutoElement();
+}
+
+function renderDefaultResetAutoElement() {
+  const htmlDefault = `
+    <button class="js-reset-button reset-score-button">Reset Score</button>
+            
+    <button class="auto-play-button js-auto-play-button">Auto Play</button>
+  `;
+
+  resetAutoContainerElement
+    .classList.remove('confirmation-grid');
+
+
+  resetAutoContainerElement.innerHTML = htmlDefault;
+  document.querySelector('.js-reset-button')
+    .addEventListener('click', () => toggleResetAutoConfirm(true));
+  document.querySelector('.js-auto-play-button')
+    .addEventListener('click', autoPlay);
+}
+
+function renderConfirmation() {
+  const htmlConfirm = `
+    <p>U sure u want to reset the score?</p>
+    <button class="confirmation-button" onclick="
+      resetScore();
+      toggleResetAutoConfirm();
+    ">Yes</button>
+    <button class="confirmation-button" onclick="
+      if (isAutoPlaying) autoPlay();
+      toggleResetAutoConfirm();
+    ">No</button>
+  `;
+  resetAutoContainerElement.innerHTML = htmlConfirm;
+  resetAutoContainerElement.classList.add('confirmation-grid');
+  if (isAutoPlaying) stopAutoPlay();
 }
